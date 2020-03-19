@@ -1,32 +1,38 @@
 import React from 'react';
-import _ from 'lodash';
 import {connect} from 'react-redux';
-import {Link} from 'react-router-dom';
+import _ from 'lodash';
 import { fetchCampaign, editCampaign } from '../../actions';
 import CampaignForm from './CampaignForm';
 
 class CampaignEdit extends React.Component{
   componentDidMount(){
-      debugger;
     this.props.fetchCampaign(this.props.match.params.id)
   }
 
   onSubmit = (formValues) => {
-    this.props.editCampaign(this.props.campaign.id,formValues)
+    let formData = new FormData();
+    for (var key in formValues) {
+      if (formValues[key] != null) {
+        if (Array.isArray(formValues[key])) {
+
+          formValues[key].forEach(value => formData.append(key, value))
+        } else {
+          formData.append(key, formValues[key]);
+        }
+      }
+    }
+    this.props.editCampaign(this.props.campaign.id,formData)
   };
 
   render(){
-    debugger;
     if(this.props.campaign){
+      console.log(this.props.campaign);
       return(
-        <div>
-          <h2>Edit Stream</h2>
           <CampaignForm 
-            //initialValues = {_.pick(this.props.campaign,'title','description')}
+            campaignTitle = "Edit Campaign"
             initialValues = {this.props.campaign}
             onSubmit = {this.onSubmit}
           />
-        </div>
       )
     }else{
       return <div>Loading...</div>

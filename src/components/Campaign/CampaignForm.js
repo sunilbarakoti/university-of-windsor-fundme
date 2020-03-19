@@ -1,42 +1,97 @@
 import React from 'react';
-import {Field, reduxForm} from 'redux-form';
+import {Link} from 'react-router-dom';
+import {Field, FieldArray, reduxForm} from 'redux-form';
+import {
+  Grid,
+  Row,
+  Col
+} from "react-bootstrap";
+import { Card } from "../Card/Card.jsx";
+import {FileInput} from "../FileUpload/FileUpload";
 
 class CampaignForm extends React.Component {
 
   renderError({error, touched}){
     if(touched && error){
       return(
-        <div className = "ui error message">
-          <div className = "header">{error}</div>
+        <div className = "ui pointing red basic label">
+          <span className = "header">{error}</span>
         </div>
       )
     }
   }
 
-  renderInput = ({ input, label, meta }) =>{
+  renderInput = ({ input, name, type, label, meta }) =>{
     return (
-      <div className = "field error">
+      <div className = "field">
         <label>{label}</label>
-        <input {...input} autoComplete = "off"/>
+        {
+          input.name === "description" ?
+          <textarea rows = "3" {...input} type={type} autoComplete = "off"/> :
+          <input {...input} type={type} autoComplete = "off"/> 
+        }
         {this.renderError(meta)}
       </div>
     )
   }
 
+  renderMultiInput = ({fields,meta}) =>{
+    return (
+      <div className = "field">
+      <button type="button" className="ui basic button primary" onClick={() => fields.push()}>Add Inventory</button>
+        {
+          fields.map((newdata,index)=>(
+            <Row key = {index}>
+            <Col md= {11}>
+            <Field
+              name={newdata}
+              type = "text"
+              component={this.renderInput}
+            />
+            </Col>
+            <Col md= {1}>
+            <div
+            style = {{marginTop:'5px'}}
+            className = "icon close"
+            type="button"
+            title="Remove"
+            onClick={() => fields.remove(index)}
+            ><i className="times large circle outline red icon"></i></div>
+            </Col>
+            </Row>
+          ))}
+          {this.renderError(meta)}
+      </div>
+      )
+  }
+
   onSubmit = (formValues) => {
-    formValues["created_by_id"] = localStorage.getItem("userId");
     this.props.onSubmit(formValues);
   }
   render(){
     return (
-        <form onSubmit={this.props.handleSubmit(this.onSubmit)} className="ui form error">
-            <Field name="title" component={this.renderInput} label="Enter Title" />
-            <Field name="description" component={this.renderInput} label="Enter Description" />
-            <Field name="unit_id" component={this.renderInput} label="Enter Currency" />
-            <Field name="amount" component={this.renderInput} label="Enter Amount" />
-            <Field name="inventory" component={this.renderInput} label="Enter Inventory Required" />
-            <button className="ui button primary">Submit</button>
-        </form>
+      <div className="content">
+        <Grid fluid>
+          <Row>
+            <Col md={8}>
+              <Card
+                title={this.props.campaignTitle}
+                content={
+                  <form onSubmit={this.props.handleSubmit(this.onSubmit)} className="ui form error">
+                    <Field name="title" type = "text" component={this.renderInput} label="Enter Title" />
+                    <Field name="description" type = "text" component={this.renderInput} label="Enter Description" />
+                    <Field name="unit_type" type = "text" component={this.renderInput} label="Enter Currency Code" />
+                    <Field name="amount" type = "text" component={this.renderInput} label="Enter Amount" />
+                    <Field name="image" type = "file" component={FileInput} label="Select an Image to Upload" />
+                    <FieldArray name="inventory" component={this.renderMultiInput} label="Enter Inventory Required" />
+                    <button className="ui right floated button primary">Submit</button>
+                    <Link to={"/"} className="ui labeled icon basic button"><i class="left chevron icon"></i>Go Back</Link>
+                  </form>}
+              />
+            </Col>
+          </Row>
+        </Grid>
+      </div>
     )
   }
 }

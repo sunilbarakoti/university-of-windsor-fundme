@@ -1,8 +1,7 @@
 
 import React from 'react';
-import {Router, Route, Link,Switch, Redirect} from 'react-router-dom';
+import {Router, Route, Switch, Redirect} from 'react-router-dom';
 import Login from './Login/Login';
-import Error from './Error/Error';
 import ProtectedRoute from './ProtectedRoute';
 import AdminLayout  from '../layouts/Admin';
 import CampaignEdit from "./Campaign/CampaignEdit";
@@ -19,8 +18,8 @@ class  App extends React.Component{
         <Switch>
           <Route path ="/" exact component = {Login}/>
            {/* <ProtectedRoute  path = "/admin/dashboard/edit/:id" component = {CampaignEdit} />  */}
-          <ProtectedRoute  path = "/admin"  component = {props => <AdminLayout {...props}/>} />
-          <Redirect from="/" to="/admin/dashboard" />
+          <ProtectedRoute  path = "/"  component = {props => <AdminLayout {...props}/>} />
+          <Redirect from="/" to="/dashboard" />
           {/* <Route exact component = {Error}/> */}
         </Switch>
         </Router>

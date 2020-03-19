@@ -1,15 +1,12 @@
 import React from 'react';
 import {useState} from 'react';
 import { connect } from 'react-redux';
-import {Avatar,Button,CssBaseline,TextField,FormControlLabel,Checkbox} from '@material-ui/core';
+import {Button,CssBaseline,TextField,FormControlLabel,Checkbox} from '@material-ui/core';
 import {Link,Grid,Box,Typography,Container} from '@material-ui/core';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import swal from 'sweetalert';
 import { onSignInClick } from '../../actions';
 import Copyright from '../Copyright/Copyright';
-import LoginAPI from '../../api/LoginAPI';
 import Loader from '../Loader/Loader';
-import uWindorLogo from '../../assets/img/uWindsor.jpg'
+import uWindsorLogo from '../../assets/img/uWindsor.jpg'
 import './Login.css';
 
 
@@ -28,7 +25,7 @@ const  LoginHelper = (props) => {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className="paper">
-          <img src = {uWindorLogo}/>
+          <img src = {uWindsorLogo}/>
           {/* <LockOutlinedIcon /> */}
         <Typography component="h1" variant="h5">
           Sign in

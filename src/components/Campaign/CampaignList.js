@@ -1,72 +1,78 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import { fetchCampaigns } from '../../actions';
+import { fetchCampaigns, deleteCampaign} from '../../actions';
 import { connect } from 'react-redux';
-import { Grid, Row, Col } from "react-bootstrap";
-import { render } from '@testing-library/react';
-var ellipsis = require('text-ellipsis');
+import CampaignCard from './CampaignCard';
+import { Grid } from "react-bootstrap";
+import Modal from '../../Modal';
+import history from "../../history";
+
 
 class CampaignList extends React.Component {
+
   componentDidMount(){
     this.props.fetchCampaigns();
+    window.previousLocation = window.location.pathname;
   }
+state = {show:false,campaignId:null}
+
+  
+  handleDelete(campaign){
+    this.setState({show:true,campaignId:campaign.id});
+  }
+  
+
 
   renderAdmin(campaign){
-    if(campaign.username === localStorage.getItem('userId')){
+    if(campaign.user.username === localStorage.getItem('userId') ||localStorage.getItem("user_type") === "m" ){
       return (
         <div>
           <Link to = {`edit/${campaign.id}`} className = "ui button primary">
             EDIT
           </Link>
-          <Link to = {'/dashboard/delete'} className = "ui button negative">
+          <button onClick = {()=>this.handleDelete(campaign)} className = "ui button negative">
             DELETE
-          </Link>
+          </button>
         </div>
       )
     }
   }
-
-  renderList(){
-    return this.props.currentCampaignData.map(campaign =>{
-        return (
-            <div key={campaign.id}>
-                <Col md={4}>
-                    <div className="ui link card">
-                        <div className="content">
-                            <div className="header" style={{ padding: 0 }}>{campaign.title}</div>
-                            <div className="meta">
-                                <span className="right floated time">2 days ago</span>
-                                <span className="category"></span>
-                            </div>
-                            <div className="description" style = {{}}>
-                                <p>{campaign.description && ellipsis(campaign.description,75)}</p>
-                            </div>
-                        </div>
-                        <div className="extra content">
-                            <div className="right floated">
-                                {this.renderAdmin(campaign)}
-                            </div>
-                            <div className="left floated author">
-                                <i className="user circle outline icon" /> {campaign.username}
-                                        </div>
-                        </div>
-                    </div>
-                    <hr/>
-                </Col>
-                
-            </div>
-        )
-    })
-  }
+  
 
   render(){
-    console.log("The available props are : ",this.props)
     return(
         <div>
             <Grid fluid>
-                <div class = "row">
-                    {this.renderList()}
+                <div className = "row">
+                {this.props.currentCampaignData.map(campaign => {
+                if(campaign.id !== undefined){return(
+                <CampaignCard 
+                  campaign = {campaign} 
+                  renderAdmin = {this.renderAdmin.bind(this)} 
+                />)}})}
                 </div>
+                {this.state.show && 
+                  <Modal parentPage = {"dashboard"} 
+                    contents = {
+                      <>
+                      <div className="header">Current Campaign</div>
+                      <div className="image content">
+                        <div className="description">
+                          <div style = {{width:'350px'}}>Are you sure you want delete?</div>
+                        </div>
+                      </div>
+                        <div className="actions">
+                        <button onClick={() =>this.setState({show:false})} className="ui button primary">
+                          No
+                        </button>
+                        <button onClick={() => (this.props.deleteCampaign(this.state.campaignId),this.setState({show:false}))} className="ui button negative">
+                          Yes
+                          </button>
+                      </div>
+                      </>
+                    }
+                  />
+                }
                 
             </Grid>
             {/* {this.renderCreate()} */}
@@ -83,4 +89,4 @@ const mapStateToProps =(state) => {
   }
 }
 
-export default connect(mapStateToProps,{fetchCampaigns})(CampaignList);
+export default connect(mapStateToProps,{fetchCampaigns,deleteCampaign})(CampaignList);
