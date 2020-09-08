@@ -1,3 +1,5 @@
+/* This component can be used to handle the file upload from any type form.*/
+
 import React from 'react'
 
 export const FileInput = ({ input, resetKey }) => {

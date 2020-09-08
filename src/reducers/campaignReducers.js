@@ -1,13 +1,11 @@
 import _ from 'lodash';
 
-import { 
+import {
     CREATE_CAMPAIGN,
     FETCH_CAMPAIGN,
     FETCH_CAMPAIGNS,
     DELETE_CAMPAIGN,
     EDIT_CAMPAIGN,
-    APPROVE_CAMPAIGN,
-    FETCH_AWAITING_CAMPAIGNS
 } from '../actions/types';
 
 const INIT_STATE = {
@@ -16,22 +14,20 @@ const INIT_STATE = {
 
 
 export default (state = INIT_STATE, action) => {
-    switch(action.type){
+    switch (action.type) {
         case FETCH_CAMPAIGNS:
-            return {...state, ..._.mapKeys(action.payload,'id')}
+            return { ...state, ..._.mapKeys(action.payload, 'id') }
         case FETCH_CAMPAIGN:
-            return {...state, ..._.mapKeys(action.payload,'id')}
+            return { ...state, ..._.mapKeys(action.payload, 'id') }
         case CREATE_CAMPAIGN:
-            return {...state, [action.payload.id]: action.payload}
-        case APPROVE_CAMPAIGN:
-            return {...state, [action.payload.id]: action.payload}
+            return { ...state, [action.payload.id]: action.payload }
         case EDIT_CAMPAIGN:
-            return {...state, [action.payload.id]: action.payload}
+            return { ...state, [action.payload.id]: action.payload }
         case DELETE_CAMPAIGN:
             return _.omit(state, action.payload)
         default:
-            return state;   
-    }  
+            return state;
+    }
 }
 
 
@@ -48,5 +44,5 @@ export default (state = INIT_STATE, action) => {
 //         default:
 //             return state; 
 //     }
-       
+
 // }

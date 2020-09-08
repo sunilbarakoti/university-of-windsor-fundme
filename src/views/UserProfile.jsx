@@ -1,3 +1,19 @@
+/*!
+
+ =========================================================
+ * Light Bootstrap Dashboard React - v1.3.0
+ * Based on Light Bootstrap Dashboard - v1.3.0
+ =========================================================
+
+ * Product Page: http://www.creative-tim.com/product/light-bootstrap-dashboard-react
+ * Copyright 2019 Creative Tim (http://www.creative-tim.com)
+ * Licensed under MIT (https://github.com/creativetimofficial/light-bootstrap-dashboard-react/blob/master/LICENSE.md)
+
+ =========================================================
+
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+ */
 import React, { Component } from "react";
 import {
   Grid,
@@ -11,7 +27,6 @@ import {
 
 import { Card } from "../components/Card/Card.jsx";
 import { FormInputs } from "../components/FormInputs/FormInputs.jsx";
-// import Button from "components/CustomButton/CustomButton.jsx";
 
 class UserProfile extends Component {
   render() {

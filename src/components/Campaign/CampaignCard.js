@@ -1,12 +1,18 @@
+/* This is a common card to display each campaign to the users in both active and approval
+pending view.This component is called as many times as the number of campaign to be displayed.*/
+
 import React from 'react';
 import history from "../../history";
 import { Col } from "react-bootstrap";
+
+import './Campaign.css';
 
 var ellipsis = require('text-ellipsis');
 var timediff = require('timediff');
 
 
-const returnDateDifference = (created_on) =>{
+
+const returnDateDifference = (created_on) => {
     if (created_on) {
         const created = new Date(created_on);
         const date_now = new Date();
@@ -21,45 +27,42 @@ const returnDateDifference = (created_on) =>{
 }
 
 
-const CampaignCard = (props) =>{    
+const CampaignCard = (props) => {
     const campaign = props.campaign;
-        if (campaign != undefined) { //check later why the issude persists
-            return (
-                <div key={campaign.id} >
-                    <Col md={4}>
-                        <div
-                            className="ui link card"
-                            onClick={() => history.push(`display/${campaign.id}`)}
-                        >
-                            <div className="image" style={{ maxHeight: '170px', maxWidth: '290px' }}>
-                                <img src={campaign.image} alt="Inventory Image" />
-                            </div>
-                            <div className="content" style={{ height: 124 }}>
-                                <div className="header" style={{ padding: 0 }}>{campaign.title && ellipsis(campaign.title, 30)}</div>
-                                <div className="meta">
-                                    <span className="right floated time">{returnDateDifference(campaign.created_on)}</span>
-                                    <span className="category"></span>
-                                </div>
-                                <div className="description" style={{}}>
-                                    <p>{campaign.description && ellipsis(campaign.description, 75)}</p>
-                                </div>
-                            </div>
-                            <div onClick={(e) => e.stopPropagation()} className="extra content">
-                                <div className="right floated">
-                                    {props.renderAdmin(campaign)}
-                                </div>
-                                <div className="left floated author" style={{ minHeight: 29.52 }}>
-                                    <i className="user circle outline icon" /> {campaign.user.first_name}
-                                </div>
-                            </div>
+    if (campaign != undefined) { //check later why the issude persists
+        return (
+            <Col key={campaign.id} md={4} sm={6} xs={12}>
+                <div
+                    className="ui link card campaign"
+                    onClick={() => history.push(`display/${campaign.id}`)}
+                >
+                    <div className="image camapign__image">
+                        <img src={campaign.image} alt="Campaign Image" />
+                    </div>
+                    <div className="content campaign__content">
+                        <div className="header campaign__content-header">{campaign.title && ellipsis(campaign.title, 30)}</div>
+                        <div className="meta">
+                            <span className="right floated time">{returnDateDifference(campaign.created_on)}</span>
+                            <span className="category"></span>
                         </div>
-                        <hr />
-                    </Col>
-
+                        <div className="description campaign__description">
+                            <p>{campaign.description && ellipsis(campaign.description, 75)}</p>
+                        </div>
+                    </div>
+                    <div onClick={(e) => e.stopPropagation()} className="extra content">
+                        <div className="right floated">
+                            {props.renderAdmin(campaign)}
+                        </div>
+                        <div className="left floated author">
+                            <i className="user circle outline icon" /> {campaign.user.first_name}
+                        </div>
+                    </div>
                 </div>
-            )
-        }else{
-            return <div>Nothing to display</div>
-        }
-  }
+                <hr />
+            </Col>
+        )
+    } else {
+        return <div>Nothing to display</div>
+    }
+}
 export default CampaignCard;

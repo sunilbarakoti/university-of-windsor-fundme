@@ -1,3 +1,4 @@
+/* This component is used by footer of the login page to display the copyright. */
 import React from 'react';
 import {Link,Typography} from '@material-ui/core';
 

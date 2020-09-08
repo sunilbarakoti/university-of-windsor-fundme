@@ -1,3 +1,19 @@
+/*!
+
+ =========================================================
+ * Light Bootstrap Dashboard React - v1.3.0
+ * Based on Light Bootstrap Dashboard - v1.3.0
+ =========================================================
+
+ * Product Page: http://www.creative-tim.com/product/light-bootstrap-dashboard-react
+ * Copyright 2019 Creative Tim (http://www.creative-tim.com)
+ * Licensed under MIT (https://github.com/creativetimofficial/light-bootstrap-dashboard-react/blob/master/LICENSE.md)
+
+ =========================================================
+
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+ */
 import React, { Component } from "react";
 import { Navbar } from "react-bootstrap";
 
@@ -8,20 +24,20 @@ class Header extends Component {
     super(props);
     this.mobileSidebarToggle = this.mobileSidebarToggle.bind(this);
     this.state = {
-      sidebarExists: false
+      sidebarExists: false,
     };
   }
   mobileSidebarToggle(e) {
     if (this.state.sidebarExists === false) {
       this.setState({
-        sidebarExists: true
+        sidebarExists: true,
       });
     }
     e.preventDefault();
     document.documentElement.classList.toggle("nav-open");
     var node = document.createElement("div");
     node.id = "bodyClick";
-    node.onclick = function() {
+    node.onclick = function () {
       this.parentElement.removeChild(this);
       document.documentElement.classList.toggle("nav-open");
     };
@@ -29,10 +45,10 @@ class Header extends Component {
   }
   render() {
     return (
-      <Navbar fluid>
+      <Navbar fluid style={{ position: "sticky", top: "0", zIndex: "100" }}>
         <Navbar.Header>
           <Navbar.Brand>
-            <a href="#pablo">{this.props.brandText}</a>
+            <span>{this.props.brandText}</span>
           </Navbar.Brand>
           <Navbar.Toggle onClick={this.mobileSidebarToggle} />
         </Navbar.Header>

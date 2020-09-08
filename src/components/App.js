@@ -1,3 +1,4 @@
+/* This is the main component where all the routing is handled. */
 
 import React from 'react';
 import {Router, Route, Switch, Redirect} from 'react-router-dom';

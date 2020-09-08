@@ -1,3 +1,6 @@
+/* This component is for creating a new campaign where on click of  "create campaign" button,
+users will be redirected to this page with a form to create a campaign.*/
+
 import React from 'react';
 import { connect } from 'react-redux';
 import { createCampaign } from '../../actions';

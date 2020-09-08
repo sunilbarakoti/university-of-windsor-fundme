@@ -1,0 +1,104 @@
+/* CampaignAwait.js */
+
+/* description__text class is used in this file as well. The style for that class
+can be found in campaignList style.  */
+
+/* CampaignCard.js */
+
+.campaign {
+  height: 330px !important;
+  width: 310px !important;
+}
+
+.camapign__image {
+  height: 175px !important;
+  object-fit: contain !important;
+}
+
+.camapign__image > img {
+  height: 175px !important;
+}
+
+.campaign__content-header {
+  padding: 0 !important;
+}
+
+.campaign__description {
+  height: 36px;
+  overflow: hidden;
+}
+
+/* CampaignCreate : No styles */
+/* CampaignDisplay */
+
+.campaignDisplay__image {
+  margin: 0 auto;
+  max-height: 200px !important;
+  text-overflow: auto;
+  max-width: 250px !important;
+  object-fit: contain;
+}
+
+.campaignDisplay__description {
+  width: 350px !important;
+}
+
+.campaignDisplay__description-header {
+  font-size: 18px;
+}
+
+.campaignDisplay__description-text {
+  max-height: 97px !important;
+  overflow-y: auto !important;
+  font-size: 13px !important;
+}
+
+.campaignDisplay__amtInv {
+  margin-top: 15px;
+}
+
+.campaignDisplay__inventory-item {
+  margin-top: 2.5px;
+}
+
+.campaignDisplay__amount,
+.campaignDisplay__inventory {
+  display: flex;
+  align-items: center;
+}
+
+.campaignDisplay__amount > p {
+  margin-bottom: unset !important;
+  font-size: 13px !important;
+}
+
+p {
+  margin-bottom: unset !important;
+  font-size: 13px !important;
+}
+
+.campaignDisplay__amount > p:first-child,
+.campaignDisplay__inventory > p:first-child {
+  margin-right: 7px;
+}
+
+.campaignDisplay__amount > p:last-child,
+.campaignDisplay__inventory > p:last-child {
+  width: 70%;
+  overflow: auto;
+  max-height: 40px;
+}
+
+/* CampaignDonate: No styles */
+/* CampaignEdit: No styles */
+/* CampaignForm */
+
+.form__remove {
+  margin-top: 2px;
+}
+
+/* CampaignList */
+
+.description__text {
+  width: calc(10vw + 250px);
+}

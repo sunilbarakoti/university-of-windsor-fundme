@@ -1,3 +1,5 @@
+/* This component restricts unauthorized users to navigate through the pages*/
+
 import React from 'react';
 import { connect } from 'react-redux';
 import {Route, Redirect} from 'react-router-dom';

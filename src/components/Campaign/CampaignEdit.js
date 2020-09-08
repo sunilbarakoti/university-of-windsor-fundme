@@ -1,11 +1,14 @@
+/* Users with edit permission can tap the edit button and they are redirected to this page.
+Then the form loads with the intial values that users has entered while creating a campaign. */
+
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import _ from 'lodash';
 import { fetchCampaign, editCampaign } from '../../actions';
 import CampaignForm from './CampaignForm';
 
-class CampaignEdit extends React.Component{
-  componentDidMount(){
+class CampaignEdit extends React.Component {
+  componentDidMount() {
     this.props.fetchCampaign(this.props.match.params.id)
   }
 
@@ -21,27 +24,27 @@ class CampaignEdit extends React.Component{
         }
       }
     }
-    this.props.editCampaign(this.props.campaign.id,formData)
+    this.props.editCampaign(formValues, formData)
   };
 
-  render(){
-    if(this.props.campaign){
+  render() {
+    if (this.props.campaign) {
       console.log(this.props.campaign);
-      return(
-          <CampaignForm 
-            campaignTitle = "Edit Campaign"
-            initialValues = {this.props.campaign}
-            onSubmit = {this.onSubmit}
-          />
+      return (
+        <CampaignForm
+          campaignTitle="Edit Campaign"
+          initialValues={this.props.campaign}
+          onSubmit={this.onSubmit}
+        />
       )
-    }else{
+    } else {
       return <div>Loading...</div>
-    }   
+    }
   }
 }
 
-const mapStateToProps = (state, ownProps) =>{
-  return { campaign: state.currentCampaignData[ownProps.match.params.id]}
+const mapStateToProps = (state, ownProps) => {
+  return { campaign: state.currentCampaignData[ownProps.match.params.id] }
 }
 
-export default connect(mapStateToProps,{fetchCampaign,editCampaign})(CampaignEdit);
+export default connect(mapStateToProps, { fetchCampaign, editCampaign })(CampaignEdit);

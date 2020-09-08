@@ -1,28 +1,43 @@
+/*!
+
+ =========================================================
+ * Light Bootstrap Dashboard React - v1.3.0
+ * Based on Light Bootstrap Dashboard - v1.3.0
+ =========================================================
+
+ * Product Page: http://www.creative-tim.com/product/light-bootstrap-dashboard-react
+ * Copyright 2019 Creative Tim (http://www.creative-tim.com)
+ * Licensed under MIT (https://github.com/creativetimofficial/light-bootstrap-dashboard-react/blob/master/LICENSE.md)
+
+ =========================================================
+
+ * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+ */
 import React, { Component } from "react";
 
-import {Link} from 'react-router-dom';
-import { connect } from 'react-redux';
-import { onSignOutClick } from '../../actions';
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { onSignOutClick } from "../../actions";
 
 import { NavItem, Nav, NavDropdown, MenuItem } from "react-bootstrap";
+import pdf from "../../assets/uWinFundMe.pdf";
 
 class AdminNavbarLinks extends Component {
-
-  logout=()=>{  
-    console.log("Reached In Logout")
-    localStorage.setItem("isLoggedIn",false);
+  logout = () => {
+    console.log("Reached In Logout");
+    localStorage.setItem("isLoggedIn", false);
     localStorage.removeItem("access_token");
-    localStorage.setItem("userId",null);
+    localStorage.setItem("userId", null);
     this.props.onSignOutClick();
-
-}
-  renderCreate(){
-    if(localStorage.getItem("isLoggedIn")){
-      return  (
-          <Link to = "/create" className = "ui blue basic button" replace>
-            Create Campaign
-          </Link>
-      )
+  };
+  renderCreate() {
+    if (localStorage.getItem("isLoggedIn")) {
+      return (
+        <Link to="/create" className="ui blue basic button" replace>
+          Create Campaign
+        </Link>
+      );
     }
   }
 
@@ -51,23 +66,15 @@ class AdminNavbarLinks extends Component {
           <NavItem eventKey={1} href="#">
             {this.renderCreate()}
           </NavItem>
-          {/* <NavItem eventKey={1} href="#">
-            Account
-          </NavItem> */}
-          {/* <NavDropdown
-            eventKey={2}
-            title="Dropdown"
-            id="basic-nav-dropdown-right"
-          >
-            <MenuItem eventKey={2.1}>Action</MenuItem>
-            <MenuItem eventKey={2.2}>Another action</MenuItem>
-            <MenuItem eventKey={2.3}>Something</MenuItem>
-            <MenuItem eventKey={2.4}>Another action</MenuItem>
-            <MenuItem eventKey={2.5}>Something</MenuItem>
-            <MenuItem divider />
-            <MenuItem eventKey={2.5}>Separated link</MenuItem>
-          </NavDropdown> */}
-          <NavItem eventKey={3} href="#" onClick = {()=>this.logout()}>
+          <NavItem eventKey={3} href={pdf} target="_blank">
+            <div style={{ height: "25px" }}>
+              <i
+                className="info circle icon"
+                style={{ fontSize: "23px", marginTop: "2.5px" }}
+              />
+            </div>
+          </NavItem>
+          <NavItem eventKey={3} href="#" onClick={() => this.logout()}>
             Log out
           </NavItem>
         </Nav>
@@ -76,4 +83,6 @@ class AdminNavbarLinks extends Component {
   }
 }
 
-export default connect(null,{onSignOutClick:onSignOutClick})(AdminNavbarLinks);
+export default connect(null, { onSignOutClick: onSignOutClick })(
+  AdminNavbarLinks
+);
