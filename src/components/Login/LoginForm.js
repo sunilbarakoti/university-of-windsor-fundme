@@ -27,7 +27,7 @@ const LoginForm = (props) => {
     <Container component="main" maxWidth="xs" className="formCont">
       <CssBaseline />
       <div className="formCont__inner">
-        <img src={uWindsorLogo} />
+        <img className= "loginImage" src={uWindsorLogo} />
 
         <form className="loginForm" noValidate onSubmit={(e) => loginHelper(e, email, password)}>
           <TextField

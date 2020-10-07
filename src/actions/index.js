@@ -12,7 +12,7 @@ import {
   FETCH_AWAITING_CAMPAIGNS
 } from './types';
 
-const baseURL = "http://52.207.216.110:8000";
+const baseURL = "http://54.198.170.179:8000";
 
 export const onSignInClick = (email, password) => async dispatch => {
   await axios({
